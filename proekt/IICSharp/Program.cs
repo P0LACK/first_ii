@@ -73,6 +73,32 @@ namespace IICSharp
             sn.Tensor targetLayer = new sn.Tensor(new sn.snLSize(classCnt, 1, 1, batchSz));
             sn.Tensor outLayer = new sn.Tensor(new sn.snLSize(classCnt, 1, 1, batchSz));
 
+            float accuratSumm = 0;
+            for (int k = 0; k<1000;++k)
+            {
+                targetLayer.reset();
+                Random rnd = new Random();
+
+
+
+                for (int i = 0; i < batchSz; ++i)
+                {
+                    int ndir = rnd.Next(0, (int)classCnt);
+                    while (imgCntDir[ndir] == 0) ndir = rnd.Next(0, (int)classCnt);
+
+                    int nimg = rnd.Next(0, imgCntDir[ndir]);
+
+                    Bitmap img;
+                    string fn = imgName[ndir][nimg];
+                    if (images.ContainsKey(fn))
+                        img = images[fn];
+                    else
+                    {
+                        img = new Bitmap(fn);
+                        images.Add(fn, img);
+                    }
+                }
+            }
         }
     }
 }
